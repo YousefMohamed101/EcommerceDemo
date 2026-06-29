@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcommerceDemo.Pages.SignInPage"
+             Title="SignInPage">
+    <VerticalStackLayout
+        Padding="2,0"
+        Spacing="15">
+        <Image
+     Source="dotnet_bot.png"
+     HeightRequest="185"
+     Aspect="AspectFit"
+     SemanticProperties.Description="dot net bot in a submarine number ten" />
+
+        <Label 
+            Text="Sign In"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            SemanticProperties.HeadingLevel="Level1"/>
+        <Label 
+            Text="UserName/Email"
+            VerticalOptions="End" 
+            HorizontalOptions="Start" />
+        <Entry x:Name="UsernameEntry" Placeholder="Username" />
+        <Label 
+        Text="Password"
+        VerticalOptions="End" 
+        HorizontalOptions="Start" 
+        />
+        <Grid ColumnDefinitions="*, Auto">
+            <Entry 
+        x:Name="PasswordEntry" 
+        Placeholder="Password" 
+        IsPassword="True"
+        Grid.Column="0" />
+            <Button 
+        x:Name="ShowPasswordButton"
+        Text="Show Password" 
+        Clicked="ShowPassword"
+        Grid.Column="1" />
+        </Grid>
+        <Button 
+            Text="Sign In" 
+            HorizontalOptions="Fill" />
+        <Button 
+            Text="Back" 
+            Clicked="Back"       
+            HorizontalOptions="Fill" />
+    </VerticalStackLayout>
+</ContentPage>

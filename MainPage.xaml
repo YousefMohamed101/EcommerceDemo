@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcommerceDemo.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="2,0"
+            Spacing="15">
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a submarine number ten" />
+
+            <Label
+                Text="Hello Customer!"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="Welcome to the E-commerce Demo"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"
+              />
+
+            <Button
+                x:Name="SignInButton"
+                Text="Sign In" 
+                Clicked="SignInButton_Clicked"
+                HorizontalOptions="Fill" />
+            <Button
+                x:Name="SignUpButton"
+                Text="Sign Up" 
+                Clicked="SignUpButton_Clicked"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
