@@ -11,5 +11,6 @@ namespace EcommerceDemo
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         }
+        
     }
 }

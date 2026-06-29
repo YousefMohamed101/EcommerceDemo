@@ -19,6 +19,8 @@ namespace EcommerceDemo
                 await Shell.Current.GoToAsync(nameof(SignUpPage)));
         }
 
+       
+
         private async void SignInButton_Clicked(object? sender, EventArgs e)
         {
             Debug.WriteLine("pressed Sign In");

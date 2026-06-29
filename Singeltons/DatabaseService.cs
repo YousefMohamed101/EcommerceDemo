@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SQLite;
+﻿using EcommerceDemo.Globals;
 using EcommerceDemo.Models;
-using EcommerceDemo.Globals;
+using SQLite;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 
 namespace EcommerceDemo.Singeltons
 {
@@ -33,9 +33,11 @@ namespace EcommerceDemo.Singeltons
 
            await userconnection.CreateTableAsync<User>();
 
-            return new DatabaseService(userconnection);
+            Instance = new DatabaseService(userconnection);
 
+            return Instance;
         }
+        
 
 
         public async Task RegisterUser(string name,string email,string password,MoneyType moneyType = MoneyType.Dollars)
@@ -58,7 +60,7 @@ namespace EcommerceDemo.Singeltons
             
             await _userDatabase.InsertAsync(user);
             
-            User isUserExist = await _userDatabase.Table<User>().Where(u => u == user).FirstOrDefaultAsync();
+            User isUserExist = await _userDatabase.Table<User>().Where(u => u.Email == user.Email).FirstOrDefaultAsync();
 
             if(isUserExist == null)
             {
@@ -70,6 +72,22 @@ namespace EcommerceDemo.Singeltons
             }
         }
 
+
+        public async Task IsUserExist(User user)
+        {
+
+            User isUserExist = await _userDatabase.Table<User>().Where(u => u.Name == user.Name && u.Password == user.Password).FirstOrDefaultAsync();
+            if (isUserExist != null)
+            {
+                Debug.WriteLine($"Successfully Found {isUserExist.Name} with email {isUserExist.Email}");
+
+            }
+            else
+            {
+                Debug.WriteLine($"No user is found");
+            }
+            
+        }
 
 
     }

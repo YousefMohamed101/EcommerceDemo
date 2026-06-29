@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using EcommerceDemo.Singeltons;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EcommerceDemo
 {
@@ -12,6 +13,11 @@ namespace EcommerceDemo
         protected override Window CreateWindow(IActivationState? activationState)
         {
             return new Window(new AppShell());
+        }
+
+        protected override async void OnStart()
+        {
+            await DatabaseService.CreateAsync();
         }
     }
 }

@@ -13,16 +13,19 @@
      SemanticProperties.Description="dot net bot in a submarine number ten" />
 
         <Label 
+            
             Text="Sign In"
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
             SemanticProperties.HeadingLevel="Level1"/>
-        <Label 
+        <Label
+            x:Name= "UsernameLabel"
             Text="UserName/Email"
             VerticalOptions="End" 
             HorizontalOptions="Start" />
         <Entry x:Name="UsernameEntry" Placeholder="Username" />
-        <Label 
+        <Label
+            x:Name= "PasswordLabel"
         Text="Password"
         VerticalOptions="End" 
         HorizontalOptions="Start" 
@@ -41,6 +44,7 @@
         </Grid>
         <Button 
             Text="Sign In" 
+            Clicked="FindUser"
             HorizontalOptions="Fill" />
         <Button 
             Text="Back" 

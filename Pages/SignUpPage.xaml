@@ -40,10 +40,12 @@ SemanticProperties.Description="dot net bot in a submarine number ten" />
    Grid.Column="0" />
             <Button 
    Text="Show Password" 
+    Clicked="ShowPassword"
    Grid.Column="1" />
         </Grid>
         <Button 
-       Text="Sign In" 
+       Text="Sign Up"
+       Clicked="RegisterUser"
        HorizontalOptions="Fill" />
         <Button 
             Text="Back" 
