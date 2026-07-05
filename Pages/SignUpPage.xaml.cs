@@ -1,5 +1,7 @@
+using EcommerceDemo.Globals;
 using EcommerceDemo.Models;
 using EcommerceDemo.Singeltons;
+using System.Diagnostics;
 
 namespace EcommerceDemo.Pages;
 
@@ -9,8 +11,8 @@ public partial class SignUpPage : ContentPage
     private readonly DatabaseService _databaseConnection;
 
     public SignUpPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _databaseConnection = DatabaseService.Instance;
 
     }
@@ -34,11 +36,30 @@ public partial class SignUpPage : ContentPage
             Name = UsernameEntry.Text,
             Email = EmailEntry.Text,
             Password = PasswordEntry.Text,
-            //BalanceType = MoneyType.USD,
+            BalanceType = GetMoneyType((string)CurrencyPicker.SelectedItem),
+            IsAdmin = AdminCheckBox.IsChecked
 
         };
 
-        await _databaseConnection.RegisterUser(user.Name, user.Email, user.Password);
+        bool succeed = await _databaseConnection.RegisterUser(user);
+        if (succeed)
+        {
+            await Shell.Current.GoToAsync("..");
+        }
     }
+
+
+    private MoneyType GetMoneyType(string s)
+    {
+
+        return s switch
+        {
+            "Euros €" => MoneyType.euros,
+            "Yen ¥" => MoneyType.Yen,
+            _ => MoneyType.Dollars,
+        };
+    }
+
+
 
 }

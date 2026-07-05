@@ -20,6 +20,8 @@ namespace EcommerceDemo.Models
 
         public MoneyType BalanceType { get; set; } = MoneyType.Dollars;
 
+        public bool IsAdmin { get; set; }
+
         public static implicit operator bool(User v)
         {
             throw new NotImplementedException();

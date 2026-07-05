@@ -38,8 +38,14 @@ public partial class SignInPage : ContentPage
            
         };
 
-        await _databaseConnection.IsUserExist(user);
+        bool succeed =await _databaseConnection.IsUserExist(user);
+
+        if (succeed)
+        {
+            _databaseConnection.UserLog = user;
+            await Shell.Current.GoToAsync(nameof(WelcomLoading));
+        }
+
+
     }
-
-
 }

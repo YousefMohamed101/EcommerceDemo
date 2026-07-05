@@ -6,18 +6,7 @@
     <VerticalStackLayout
         Padding="2,0"
         Spacing="15">
-        <Image
-     Source="dotnet_bot.png"
-     HeightRequest="185"
-     Aspect="AspectFit"
-     SemanticProperties.Description="dot net bot in a submarine number ten" />
 
-        <Label 
-            
-            Text="Sign In"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            SemanticProperties.HeadingLevel="Level1"/>
         <Label
             x:Name= "UsernameLabel"
             Text="UserName/Email"

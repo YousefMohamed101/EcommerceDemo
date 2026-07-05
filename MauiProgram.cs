@@ -17,7 +17,8 @@ namespace EcommerceDemo
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
+
             builder.Services.AddSingleton<DatabaseService>();
 #endif
 
