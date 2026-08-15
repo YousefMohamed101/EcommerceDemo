@@ -38,14 +38,16 @@ public partial class SignInPage : ContentPage
            
         };
 
-        bool succeed =await _databaseConnection.IsUserExist(user);
+        User succeed = await _databaseConnection.IsUserExist(user);
 
-        if (succeed)
+        if (succeed != null)
         {
-            _databaseConnection.UserLog = user;
+            _databaseConnection.UserLog = succeed;
             await Shell.Current.GoToAsync(nameof(WelcomLoading));
+            return;
         }
-
+        
+        Console.Write("Could not find user");
 
     }
 }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcommerceDemo.Pages.ProductView"
+             BackgroundColor="White">
+
+    <Grid ColumnDefinitions="*, *" Padding="0">
+
+        <Grid Grid.Column="0" RowDefinitions="*, Auto" Padding="10" RowSpacing="10">
+
+            <Grid Grid.Row="0">
+
+
+                <Border StrokeShape="RoundRectangle 12"
+                        StrokeThickness="0"
+                        BackgroundColor="Black"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill">
+
+                    <CarouselView x:Name="ImageList"
+                                  IndicatorView="Dots"
+                                  PeekAreaInsets="0"
+                                  Loop="False"
+                                  HorizontalOptions="Fill"
+                                  VerticalOptions="Fill">
+                        <CarouselView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"
+                                               SnapPointsType="MandatorySingle"
+                                               SnapPointsAlignment="Center"
+                                               ItemSpacing="0" />
+                        </CarouselView.ItemsLayout>
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding .}"
+                                       Aspect="AspectFit"
+                                       HorizontalOptions="Fill"
+                                       VerticalOptions="Fill" />
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+
+                </Border>
+
+                <Button Text="&#x276E;"
+                        Clicked="OnNextClicked"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        BackgroundColor="#80000000"
+                        TextColor="White"
+                        CornerRadius="20"
+                        WidthRequest="40" HeightRequest="40"
+                        Margin="10,0,0,0"
+                        Padding="0" />
+
+                <Button Text="&#x276F;"
+                        Clicked="OnPreviousClicked"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        BackgroundColor="#80000000"
+                        TextColor="White"
+                        CornerRadius="20"
+                        WidthRequest="40" HeightRequest="40"
+                        Margin="0,0,10,0"
+                        Padding="0" />
+            </Grid>
+
+            <IndicatorView x:Name="Dots"
+                           Grid.Row="1"
+                           IndicatorColor="LightGray"
+                           SelectedIndicatorColor="Black"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,10" />
+        </Grid>
+
+        <VerticalStackLayout Grid.Column="1"
+                              VerticalOptions="Center"
+                              Padding="20"
+                              Spacing="12">
+
+            <Label x:Name="ProductTitle"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalOptions="Start" />
+
+            <Label x:Name="ProductPrice"
+                   FontSize="20"
+                   TextColor="Gray"
+                   HorizontalOptions="Start" 
+                   VerticalOptions="Start"/>
+            <Label x:Name="Price"
+                   FontSize="14"
+                   TextColor="DimGray"
+                   LineBreakMode="WordWrap"
+                   HorizontalOptions="Start" />
+            <Label x:Name="ProductDescription"
+                   FontSize="14"
+                   TextColor="Black"
+                   LineBreakMode="WordWrap"
+                   HorizontalOptions="Start" />
+            
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Button x:Name="DecreaseAmount"
+                        Text="&#x276E;"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        BackgroundColor="#80000000"
+                        TextColor="White"
+                        CornerRadius="10"
+                        WidthRequest="20" HeightRequest="20"
+                        Margin="10,0,0,0"
+                        Padding="0" />
+                <Label x:Name="AmountLabel" BackgroundColor="LightGray" WidthRequest="20" HeightRequest="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Button x:Name="IncreaseAmount"
+                        Text="&#x276F;"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        BackgroundColor="#80000000"
+                        TextColor="White"
+                        CornerRadius="10"
+                        WidthRequest="20" HeightRequest="20"
+                        Margin="0,0,10,0"
+                        Padding="0" />
+            </HorizontalStackLayout>
+            <Button x:Name="AddToCartButton"
+                    Text="Add to Cart"
+                    Clicked="OnAddToCartClicked"
+                    BackgroundColor="Black"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="48"
+                    Margin="0,10,0,0" />
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>

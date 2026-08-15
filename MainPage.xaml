@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EcommerceDemo.MainPage">
+             x:Class="EcommerceDemo.MainPage"
+             BackgroundColor="White">
 
     <ScrollView>
         <VerticalStackLayout
@@ -28,12 +29,16 @@
                 x:Name="SignInButton"
                 Text="Sign In" 
                 Clicked="SignInButton_Clicked"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill"
+                 BackgroundColor="Black"
+                 TextColor="White"/>
             <Button
                 x:Name="SignUpButton"
                 Text="Sign Up" 
                 Clicked="SignUpButton_Clicked"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill"
+                 BackgroundColor="Black"
+                 TextColor="White"/>
         </VerticalStackLayout>
     </ScrollView>
 

@@ -13,7 +13,7 @@ public partial class WelcomLoading : ContentPage
         InitializeComponent();
         _databaseConnection = DatabaseService.Instance;
 
-        GreetingLabel.Text = $"Welcome,{_databaseConnection.UserLog.Name}";
+        GreetingLabel.Text = $"Welcome, {_databaseConnection.UserLog.Name}";
         GreetingLabel.Opacity = 0;
         StartAnimationPlay();
 

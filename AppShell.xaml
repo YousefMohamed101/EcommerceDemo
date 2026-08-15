@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EcommerceDemo"
     Title="EcommerceDemo">
+    <Shell.NavBarIsVisible>False</Shell.NavBarIsVisible>
 
     <ShellContent
         Title="Home"

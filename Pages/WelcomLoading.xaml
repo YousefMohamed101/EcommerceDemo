@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcommerceDemo.Pages.WelcomLoading"
-             Title="">
+             Title=""
+             BackgroundColor="White">
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
         <Label
             x:Name="GreetingLabel"
@@ -10,7 +11,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             FontSize="64"
-            TextColor="MediumPurple"
+            TextColor="Black"
              SemanticProperties.HeadingLevel="Level3"
             />
     </VerticalStackLayout>

@@ -7,7 +7,7 @@ namespace EcommerceDemo.Models
 {
 
     [Table("Users")]
-    class User
+    public class User
     {
 
 
@@ -21,10 +21,20 @@ namespace EcommerceDemo.Models
         public MoneyType BalanceType { get; set; } = MoneyType.Dollars;
 
         public bool IsAdmin { get; set; }
+        public string ImagePath { get; set; }
 
         public static implicit operator bool(User v)
         {
             throw new NotImplementedException();
         }
+        
+        public User Clone() => new User {
+                Id = Id,
+                Name = Name,
+                Email = Email,
+                Password = Password,
+                ImagePath = ImagePath,
+                IsAdmin = IsAdmin
+        };
     }
 }

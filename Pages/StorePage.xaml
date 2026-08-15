@@ -1,12 +1,91 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:EcommerceDemo.Models"
              x:Class="EcommerceDemo.Pages.StorePage"
-             Title="StorePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Place Holder"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="StorePage"
+             BackgroundColor="White">
+    
+    
+    
+    
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+        <Label Grid.Row="0"
+               Text="Store Page"
+               VerticalOptions="Center"
+               FontSize="32"
+               HorizontalOptions="Start" 
+               Margin="20,10,0,10"
+               FontFamily="OpenSansSemibold"
+               TextColor= "#FF9880E5"
+               />
+        
+        <ImageButton Grid.Row="0" x:Name="Cart"  HorizontalOptions = "End" Source="cart_icon.png"  WidthRequest="34" HeightRequest="34"  Aspect="AspectFit" BackgroundColor="Transparent" Margin="0,0,80,0"/>
+
+        
+            
+            <Image HorizontalOptions = "End" Source="pf_icon.jpeg" WidthRequest="34" HeightRequest="34"  Aspect="AspectFit" BackgroundColor="Transparent" Margin="0,0,20,0"/>
+       
+        <Picker x:Name="ProfileRequest" Grid.Row="0" VerticalTextAlignment="End" HorizontalOptions = "End"  TitleColor="Transparent" BackgroundColor="Transparent" TextColor="Transparent" Margin="0,0,20,0" WidthRequest="34" Height="16" Opacity="0.01">
+            <Picker.ItemsSource >
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>None</x:String>
+                    <x:String>Profile</x:String>
+                    <x:String>Log Out</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <BoxView Grid.Row="1"
+                 HeightRequest="1"
+                 Color="Black"
+                 HorizontalOptions="Fill" 
+                 VerticalOptions="Start"
+                 />
+        
+        
+        <SearchBar Grid.Row="2"
+                   x:Name="SearchBox"
+                   Placeholder="Search products..."
+                   TextChanged="OnSearchBarChanged"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Start"
+                   TextColor="Black"
+                   BackgroundColor="LightGray"
+                   
+                   />
+        <CollectionView Grid.Row="3" x:Name="ItemsCollection">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type models:Product}">
+                    <Border Stroke="LightGray" StrokeShape="RoundRectangle 8" Padding="10" >
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProductTapped" CommandParameter="{Binding .}" />
+                            <PointerGestureRecognizer PointerEntered="OnPointerEnter" PointerExited="OnPointerExited"></PointerGestureRecognizer>
+                        </Border.GestureRecognizers>
+                        
+                        <Grid  RowDefinitions="*,Auto,Auto,Auto">
+                            
+                            <Image Grid.Row="0"
+                                   Source="{Binding Thumbnail}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="128"
+                                   WidthRequest="128"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill" />
+                            <Label Grid.Row="1" Text="{Binding Title}" FontAttributes="Bold" FontSize="14" LineBreakMode="TailTruncation" />
+                            <Label Grid.Row="2" Text="{Binding Description}" FontSize="11" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="1" />
+                            <Label Grid.Row="3" Text="{Binding Price, StringFormat='{0:C}'}" FontSize="13" TextColor="Green" />
+
+                           
+                            
+                            
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

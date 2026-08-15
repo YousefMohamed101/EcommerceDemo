@@ -2,22 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcommerceDemo.Pages.SignUpPage"
-             Title="SignUpPage">
+             Title="SignUpPage"
+             BackgroundColor="White">
     <VerticalStackLayout
         Padding="2,0"
-        Spacing="15">
+        Spacing="15"
+        VerticalOptions="Center"
+        >
        
-    
+        <Label Grid.Row="0"
+               Text="Sign Up"
+               VerticalOptions="Center"
+               FontSize="32"
+               HorizontalOptions="Center" 
+               VerticalTextAlignment="Center"
+               Margin="20,10,0,10"
+               FontFamily="OpenSansSemibold"
+               TextColor= "#FF9880E5"
+        />
+
         <Label 
        Text="UserName"
        VerticalOptions="End" 
        HorizontalOptions="Start" />
-        <Entry x:Name="UsernameEntry" Placeholder="Username" />
+        <Entry x:Name="UsernameEntry" Placeholder="Username"  BackgroundColor="LightGray" TextColor="Black"/>
         <Label 
         Text="Email"
         VerticalOptions="End" 
         HorizontalOptions="Start" />    
-         <Entry x:Name="EmailEntry" Placeholder="Email" />
+         <Entry x:Name="EmailEntry" Placeholder="Email" BackgroundColor="LightGray"  TextColor="Black"/>
         <Label 
    Text="Password"
    VerticalOptions="End" 
@@ -28,14 +41,14 @@
    x:Name="PasswordEntry" 
    Placeholder="Password" 
    IsPassword="True"
-   Grid.Column="0" />
+   Grid.Column="0"   BackgroundColor="LightGray" TextColor="Black"/>
             <Button 
    Text="Show Password" 
     Clicked="ShowPassword"
    Grid.Column="1" />
         </Grid>
-        <Picker x:Name="CurrencyPicker">
-            <Picker.ItemsSource>
+        <Picker x:Name="CurrencyPicker" BackgroundColor="LightGray" TextColor="Black">
+            <Picker.ItemsSource >
                 <x:Array Type="{x:Type x:String}">
                     <x:String>None</x:String>
                     <x:String>Dollars $</x:String>
@@ -48,19 +61,19 @@
             <Label  
         Text="Admin?" 
          VerticalTextAlignment="Center"
-
+        TextColor="Black"
         />
             <CheckBox 
-            x:Name="AdminCheckBox"   
+            x:Name="AdminCheckBox"    
              />
         </HorizontalStackLayout>
         <Button 
        Text="Sign Up"
        Clicked="RegisterUser"
-       HorizontalOptions="Fill" />
+       HorizontalOptions="Fill" TextColor="White" BackgroundColor="Black"/>
         <Button 
             Text="Back" 
             Clicked="Back"       
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill" TextColor="White"  BackgroundColor="Black"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -12,6 +12,7 @@ namespace EcommerceDemo
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(WelcomLoading), typeof(WelcomLoading));
             Routing.RegisterRoute(nameof(StorePage), typeof(StorePage));
+            
         }
 
     }

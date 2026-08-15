@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcommerceDemo.Pages.ProfilePage"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"  Spacing="50">
+            <ImageButton x:Name="PfButton" Source="pf_icon.jpeg" HeightRequest="128" WidthRequest="128" Clicked="UpdatPfImage"/>
+            
+            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="15" ColumnSpacing="20">
+                
+                <!-- ROW 0: Username -->
+                <Entry x:Name="UserName" Grid.Row="0" Grid.Column="0" Text="Place Holder username" VerticalOptions="Center" TextColor="Black" IsEnabled="False" BackgroundColor="Gray"/>
+                <ImageButton x:Name="AllowUserEdit" Grid.Row="0" Grid.Column="1" Source="dotnet_bot.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" />
+                
+                <!-- ROW 1: Email -->
+                <Entry x:Name="Email" Grid.Row="1" Grid.Column="0" Text="Place Holder email" VerticalOptions="Center" TextColor="Black" IsEnabled="False" BackgroundColor="Gray"/>
+                <ImageButton x:Name="AllowEmailEdit" Grid.Row="1" Grid.Column="1" Source="dotnet_bot.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" />
+                
+                <!-- ROW 2: Admin (Spans across both columns since there is no button) -->
+                <Label x:Name="Admin" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Place Holder admin" VerticalOptions="Center" TextColor="Black"/>
+                
+            </Grid>
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -2,17 +2,30 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcommerceDemo.Pages.SignInPage"
-             Title="SignInPage">
+             Title="SignInPage"
+             BackgroundColor="White">
     <VerticalStackLayout
         Padding="2,0"
-        Spacing="15">
+        Spacing="15"
+        VerticalOptions="Center"
+        >
+        <Label Grid.Row="0"
+               Text="Sign In"
+               VerticalOptions="Center"
+               FontSize="32"
+               HorizontalOptions="Center" 
+               VerticalTextAlignment="Center"
+               Margin="20,10,0,10"
+               FontFamily="OpenSansSemibold"
+               TextColor= "Black"
+        />
 
         <Label
             x:Name= "UsernameLabel"
             Text="UserName/Email"
             VerticalOptions="End" 
             HorizontalOptions="Start" />
-        <Entry x:Name="UsernameEntry" Placeholder="Username" />
+        <Entry x:Name="UsernameEntry" Placeholder="Username" BackgroundColor="LightGray" TextColor="Black"/>
         <Label
             x:Name= "PasswordLabel"
         Text="Password"
@@ -24,7 +37,7 @@
         x:Name="PasswordEntry" 
         Placeholder="Password" 
         IsPassword="True"
-        Grid.Column="0" />
+        Grid.Column="0"  BackgroundColor="LightGray" TextColor="Black"/>
             <Button 
         x:Name="ShowPasswordButton"
         Text="Show Password" 
@@ -34,10 +47,14 @@
         <Button 
             Text="Sign In" 
             Clicked="FindUser"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill" 
+            BackgroundColor="Black"
+            TextColor="White"/>
         <Button 
             Text="Back" 
             Clicked="Back"       
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill" 
+            BackgroundColor="Black"
+            TextColor="White"/>
     </VerticalStackLayout>
 </ContentPage>
