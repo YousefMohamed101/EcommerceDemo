@@ -2,78 +2,146 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcommerceDemo.Pages.SignUpPage"
-             Title="SignUpPage"
-             BackgroundColor="White">
-    <VerticalStackLayout
-        Padding="2,0"
-        Spacing="15"
-        VerticalOptions="Center"
-        >
-       
-        <Label Grid.Row="0"
-               Text="Sign Up"
-               VerticalOptions="Center"
-               FontSize="32"
-               HorizontalOptions="Center" 
-               VerticalTextAlignment="Center"
-               Margin="20,10,0,10"
-               FontFamily="OpenSansSemibold"
-               TextColor= "#FF9880E5"
-        />
+             Title="Sign Up"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource PageBackground}">
 
-        <Label 
-       Text="UserName"
-       VerticalOptions="End" 
-       HorizontalOptions="Start" />
-        <Entry x:Name="UsernameEntry" Placeholder="Username"  BackgroundColor="LightGray" TextColor="Black"/>
-        <Label 
-        Text="Email"
-        VerticalOptions="End" 
-        HorizontalOptions="Start" />    
-         <Entry x:Name="EmailEntry" Placeholder="Email" BackgroundColor="LightGray"  TextColor="Black"/>
-        <Label 
-   Text="Password"
-   VerticalOptions="End" 
-   HorizontalOptions="Start" 
-   />
-        <Grid ColumnDefinitions="*, Auto">
-            <Entry 
-   x:Name="PasswordEntry" 
-   Placeholder="Password" 
-   IsPassword="True"
-   Grid.Column="0"   BackgroundColor="LightGray" TextColor="Black"/>
-            <Button 
-   Text="Show Password" 
-    Clicked="ShowPassword"
-   Grid.Column="1" />
-        </Grid>
-        <Picker x:Name="CurrencyPicker" BackgroundColor="LightGray" TextColor="Black">
-            <Picker.ItemsSource >
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>None</x:String>
-                    <x:String>Dollars $</x:String>
-                    <x:String>Euros €</x:String>
-                    <x:String>Yen ¥</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
-        <HorizontalStackLayout>
-            <Label  
-        Text="Admin?" 
-         VerticalTextAlignment="Center"
-        TextColor="Black"
-        />
-            <CheckBox 
-            x:Name="AdminCheckBox"    
-             />
-        </HorizontalStackLayout>
-        <Button 
-       Text="Sign Up"
-       Clicked="RegisterUser"
-       HorizontalOptions="Fill" TextColor="White" BackgroundColor="Black"/>
-        <Button 
-            Text="Back" 
-            Clicked="Back"       
-            HorizontalOptions="Fill" TextColor="White"  BackgroundColor="Black"/>
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="28,24,28,32"
+                              Spacing="18"
+                              VerticalOptions="Center">
+
+            <VerticalStackLayout Spacing="6" Margin="0,0,0,10">
+                <Label Text="Create account"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}" />
+                <Label Text="Just a few details to get you set up"
+                       FontSize="14"
+                       TextColor="{StaticResource TextSecondary}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Username" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 10"
+                        Stroke="{StaticResource HairlineBorder}"
+                        StrokeThickness="1"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        Padding="14,0"
+                        HeightRequest="50">
+                    <Entry x:Name="UsernameEntry"
+                           Placeholder="Choose a username"
+                           TextColor="{StaticResource TextPrimary}"
+                           PlaceholderColor="{StaticResource TextSecondary}"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Email" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 10"
+                        Stroke="{StaticResource HairlineBorder}"
+                        StrokeThickness="1"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        Padding="14,0"
+                        HeightRequest="50">
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="you@example.com"
+                           Keyboard="Email"
+                           TextColor="{StaticResource TextPrimary}"
+                           PlaceholderColor="{StaticResource TextSecondary}"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Password" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 10"
+                        Stroke="{StaticResource HairlineBorder}"
+                        StrokeThickness="1"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        Padding="14,0"
+                        HeightRequest="50">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry x:Name="PasswordEntry"
+                               Grid.Column="0"
+                               Placeholder="Create a password"
+                               IsPassword="True"
+                               TextColor="{StaticResource TextPrimary}"
+                               PlaceholderColor="{StaticResource TextSecondary}"
+                               BackgroundColor="Transparent"
+                               VerticalOptions="Center" />
+                        <Button Grid.Column="1"
+                                Text="Show"
+                                Clicked="ShowPassword"
+                                BackgroundColor="Transparent"
+                                TextColor="{StaticResource AccentNavy}"
+                                FontAttributes="Bold"
+                                FontSize="13"
+                                Padding="8,0"
+                                VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Currency" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 10"
+                        Stroke="{StaticResource HairlineBorder}"
+                        StrokeThickness="1"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        Padding="14,0"
+                        HeightRequest="50">
+                    <Picker x:Name="CurrencyPicker"
+                            TextColor="{StaticResource TextPrimary}"
+                            TitleColor="{StaticResource TextSecondary}"
+                            BackgroundColor="Transparent"
+                            VerticalOptions="Center">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Dollars $</x:String>
+                                <x:String>Euros €</x:String>
+                                <x:String>Yen ¥</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Border>
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout Spacing="10" Margin="0,4,0,0">
+                <CheckBox x:Name="AdminCheckBox" Color="{StaticResource AccentNavy}" />
+                <Label Text="Register as admin"
+                       VerticalTextAlignment="Center"
+                       FontSize="14"
+                       TextColor="{StaticResource TextPrimary}" />
+            </HorizontalStackLayout>
+
+            <Button Text="Sign Up"
+                    Clicked="RegisterUser"
+                    BackgroundColor="{StaticResource AccentNavy}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill"
+                    Margin="0,10,0,0" />
+
+            <Button Text="Back"
+                    Clicked="Back"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource TextPrimary}"
+                    BorderColor="{StaticResource HairlineBorder}"
+                    BorderWidth="1"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

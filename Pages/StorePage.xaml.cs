@@ -37,6 +37,8 @@ public partial class StorePage : ContentPage
     {
         base.OnAppearing();
 
+        ProfileRequest.SelectedIndex = 0;
+        
         _allProducts = await _databaseConnection.GetProducts();     
         ItemsCollection.ItemsSource = _allProducts;
     }

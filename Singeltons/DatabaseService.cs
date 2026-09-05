@@ -166,10 +166,20 @@ namespace EcommerceDemo.Singeltons
                 Console.WriteLine("Couldn't find product");
                 return;
             }
-
             item.Name = isProductExist.Title;
             item.ImagePath = isProductExist.Thumbnail;
             item.Price = isProductExist.Price;
+            
+           CartItem? alreadyInCart = await _cartDatabase.Table<CartItem>().Where(c => c.ItemId == item.ItemId && c.UserId == isUserExist.Id).FirstOrDefaultAsync();
+
+           if(alreadyInCart != null) {
+               alreadyInCart.Count += item.Count;
+               int updatedCount = await _cartDatabase.UpdateAsync(alreadyInCart);
+               _productDatabase.UpdateAsync(isProductExist);
+               return;
+           }
+           
+            
             int addedCount = await _cartDatabase.InsertAsync(item);
             Console.WriteLine(addedCount == 0 ? "Add failed" : "Add Successful");
             isProductExist.Stock -= item.Count;
@@ -177,8 +187,8 @@ namespace EcommerceDemo.Singeltons
         }
         
         public async Task RemoveFromCart(CartItem item) {
-            
-            CartItem? isCartExist = await _cartDatabase.Table<CartItem>().Where(c => c.Id == item.Id).FirstOrDefaultAsync();
+            User? isUserExist = await _userDatabase.Table<User>().Where(u => u.Id == item.UserId).FirstOrDefaultAsync();
+            CartItem? isCartExist = await _cartDatabase.Table<CartItem>().Where(c => c.ItemId == item.ItemId && c.UserId == isUserExist.Id).FirstOrDefaultAsync();
             Product? isProductExist = await _productDatabase.Table<Product>().Where(p=> p.Id == item.ItemId).FirstOrDefaultAsync();
             if(isCartExist == null ) {
                 Console.WriteLine("Couldn't find cart item");
@@ -199,6 +209,63 @@ namespace EcommerceDemo.Singeltons
         public async Task<List<CartItem>> GetCartItems() {
             return await _cartDatabase.Table<CartItem>().Where(c=>c.UserId == UserLog.Id).ToListAsync(); 
         }
+
+        public async Task UpdateUserWallet(decimal amount) {
+            
+            
+            User? isUserExist = await _userDatabase.Table<User>().Where(u => u.Id == UserLog.Id).FirstOrDefaultAsync(); 
+            if(isUserExist == null ) {
+                Console.WriteLine("Couldn't find user");
+                return;
+            }
+            
+            isUserExist.Balance += amount;
+            _userDatabase.UpdateAsync(isUserExist);
+            UserLog = isUserExist;
+            
+        }
+
+        public async Task Checkout(List<CartItem> items) {
+            
+            float totalPrice = items.Sum(cartItem => cartItem.TotalPrice);
+
+            if(UserLog != null && totalPrice > (float)UserLog.Balance) {
+                throw new Exception("Insufficent Funds");
+                
+            }
+            UserLog.Balance -= (decimal)totalPrice;
+            await _userDatabase.UpdateAsync(UserLog);
+            Console.WriteLine("saved " + UserLog.Balance);
+            foreach(CartItem cartItem in items) {
+                User? isUserExist = await _userDatabase.Table<User>().Where(u => u.Id == cartItem.UserId).FirstOrDefaultAsync();
+                CartItem? isCartExist = await _cartDatabase.Table<CartItem>().Where(c => c.ItemId == cartItem.ItemId && c.UserId == isUserExist.Id).FirstOrDefaultAsync();
+                Product? isProductExist = await _productDatabase.Table<Product>().Where(p=> p.Id == cartItem.ItemId).FirstOrDefaultAsync();
+
+                if(isUserExist == null) {
+                    throw new Exception("User doesn't exist");
+                }
         
+                if(isCartExist == null) {
+                    throw new Exception("Cart item doesn't exist");
+                }
+
+                if(isProductExist == null) {
+                    throw new Exception("Product doesn't exist");
+                }
+                
+                
+                isProductExist?.Stock -= cartItem.Count;
+                await _productDatabase.UpdateAsync(isProductExist);
+                await _cartDatabase.DeleteAsync(isCartExist);
+
+            }
+            
+            
+            
+            
+            
+            
+        }
+
     }
 }

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:EcommerceDemo.Models"
+             x:Class="EcommerceDemo.Pages.CheckoutPage">
+    
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto"
+              RowSpacing="20"
+              Padding="24,28"
+              BackgroundColor="{StaticResource PageBackground}">
+
+            <!-- Header -->
+            <VerticalStackLayout Grid.Row="0" Spacing="2">
+                <Label Text="Checkout"
+                       TextColor="{StaticResource TextPrimary}"
+                       FontSize="30"
+                       FontAttributes="Bold" />
+                <Label Text="Review your order before you pay"
+                       TextColor="{StaticResource TextSecondary}"
+                       FontSize="14" />
+            </VerticalStackLayout>
+
+            <!-- Cart items -->
+            <Border Grid.Row="1"
+                    BackgroundColor="{StaticResource CardBackground}"
+                    Stroke="{StaticResource HairlineBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.06" Radius="16" Offset="0,4" />
+                </Border.Shadow>
+
+                <CollectionView x:Name="ItemsList">
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Padding="24" Spacing="6">
+                            <Label Text="Your cart is empty"
+                                   FontAttributes="Bold" FontSize="16"
+                                   TextColor="{StaticResource TextPrimary}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Text="Items you add will show up here"
+                                   FontSize="13"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:CartItem}">
+                            <Grid Padding="16,14"
+                                  ColumnDefinitions="44,*,Auto"
+                                  ColumnSpacing="14"
+                                  RowDefinitions="Auto,Auto,Auto">
+
+                                <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                                        StrokeShape="RoundRectangle 8"
+                                        Stroke="{StaticResource HairlineBorder}"
+                                        StrokeThickness="1"
+                                        Padding="0"
+                                        HeightRequest="44" WidthRequest="44"
+                                        VerticalOptions="Center">
+                                    <Image Source="{Binding ImagePath}" Aspect="AspectFill" />
+                                </Border>
+
+                                <Label Grid.Column="1" Grid.Row="0"
+                                       Text="{Binding Name}"
+                                       TextColor="{StaticResource TextPrimary}"
+                                       FontAttributes="Bold" FontSize="15"
+                                       LineBreakMode="TailTruncation"
+                                       VerticalOptions="End" />
+
+                                <Label Grid.Column="1" Grid.Row="1"
+                                       Text="{Binding Count, StringFormat='Qty {0}'}"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       FontSize="13"
+                                       VerticalOptions="Start" />
+
+                                <Label Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"
+                                       Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                                       TextColor="{StaticResource PriceGreen}"
+                                       FontAttributes="Bold" FontSize="15"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End" />
+
+                                <BoxView Grid.Row="2" Grid.ColumnSpan="3"
+                                         HeightRequest="1"
+                                         Color="{StaticResource HairlineBorder}"
+                                         Margin="0,12,0,0" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+            <!-- Summary + Pay -->
+            <VerticalStackLayout Grid.Row="2" Spacing="16">
+
+                <BoxView HeightRequest="1" Color="{StaticResource HairlineBorder}" />
+
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0" Text="Total amount" Style="{StaticResource SummaryLabelStyle}" FontSize="16" />
+                    <Label x:Name="CartTotalAmount" Grid.Column="1" Text="$0.00"
+                           TextColor="{StaticResource PriceGreen}" FontAttributes="Bold" FontSize="22" />
+                </Grid>
+
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0" Text="Your balance" Style="{StaticResource SummaryLabelStyle}" />
+                    <Label x:Name="UserBalanceLabel" Grid.Column="1"
+                           TextColor="{StaticResource TextPrimary}" FontAttributes="Bold" FontSize="16" />
+                </Grid>
+
+                <Button Text="Pay now"
+                        Clicked="OnCheckoutButton"
+                        TextColor="White"
+                        BackgroundColor="{StaticResource AccentNavy}"
+                        FontAttributes="Bold" FontSize="16"
+                        CornerRadius="12"
+                        HeightRequest="52"
+                        HorizontalOptions="Fill" />
+                <Button x:Name="BackButton"
+                        Text="Back"
+                        Clicked="OnBackButton"
+                        BackgroundColor="{StaticResource AccentNavy}"
+                        TextColor="White"
+                        FontSize="16"
+                        CornerRadius="12"
+                        HeightRequest="52"
+                        Margin="0,10,0,0" />
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

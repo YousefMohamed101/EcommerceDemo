@@ -1,83 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:EcommerceDemo.Models"
              x:Class="EcommerceDemo.Pages.CartPage"
-             BackgroundColor="White">
+             Title="Cart"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource PageBackground}">
+
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,Auto,Auto,*">
+        <Grid RowDefinitions="Auto,Auto,*,Auto,Auto">
+
             <Label Grid.Row="0"
-                   Text="Store Page"
+                   Text="Your Cart"
                    VerticalOptions="Center"
-                   FontSize="32"
-                   HorizontalOptions="Start" 
-                   Margin="20,10,0,10"
-                   FontFamily="OpenSansSemibold"
-                   TextColor= "#FF9880E5"
-            />
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"
+                   Margin="20,16,20,10"
+                   TextColor="{StaticResource TextPrimary}" />
+
             <BoxView Grid.Row="1"
                      HeightRequest="1"
-                     Color="Black"
-                     HorizontalOptions="Fill" 
-                     VerticalOptions="Start"
-            />
-            <CollectionView x:Name="ItemsShow" Grid.Row="2">
+                     Color="{StaticResource HairlineBorder}"
+                     HorizontalOptions="Fill" />
+
+            <CollectionView Grid.Row="2" x:Name="ItemsShow" Margin="20,14,20,0">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="10" HorizontalItemSpacing="10" />
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
                 </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="24" Spacing="6">
+                        <Label Text="Your cart is empty" FontAttributes="Bold" FontSize="16"
+                               TextColor="{StaticResource TextPrimary}" HorizontalTextAlignment="Center" />
+                        <Label Text="Add some products to get started" FontSize="13"
+                               TextColor="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:CartItem}">
-                        <Border Stroke="LightGray" StrokeShape="RoundRectangle 8" Padding="10" >
-                            <Grid  ColumnDefinitions="Auto,*,*,*,Auto" ColumnSpacing="12">
-                            
-                                <Image Grid.Column="0"
-                                       Source="{Binding ImagePath}"
-                                       Aspect="AspectFill"
-                                       HeightRequest="64"
-                                       WidthRequest="64"
-                                       HorizontalOptions="Start"
-                                       VerticalOptions="Center" />
-                                <Label Grid.Column="1" Text="{Binding Name}" FontAttributes="Bold" FontSize="14" LineBreakMode="TailTruncation" VerticalOptions="Center" />
-                                <HorizontalStackLayout Grid.Column="2" Spacing="20" >
-                                    <Button x:Name="DecreaseAmount"
-                                            Text="&#x276E;"
-                                            HorizontalOptions="Start"
-                                            VerticalOptions="Center"
-                                            BackgroundColor="#80000000"
-                                            TextColor="White"
-                                            CornerRadius="10"
-                                            WidthRequest="20" HeightRequest="20"
-                                            Margin="10,0,0,0"
-                                            Padding="0" />
-                                    <Label Text="{Binding Count}" FontAttributes="Bold" FontSize="14" LineBreakMode="TailTruncation" HorizontalOptions="Fill" WidthRequest="30" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                    <Button x:Name="IncreaseAmount"
-                                            Text="&#x276F;"
-                                            HorizontalOptions="Start"
-                                            VerticalOptions="Center"
-                                            BackgroundColor="#80000000"
-                                            TextColor="White"
-                                            CornerRadius="10"
-                                            WidthRequest="20" HeightRequest="20"
-                                            Margin="10,0,0,0"
-                                            Padding="0" />
-                                </HorizontalStackLayout>
-                                <Label Grid.Column="3" Text="{Binding TotalPrice, StringFormat='{0:C}'}" FontSize="13" TextColor="Green" VerticalOptions="Center" />
-                                <ImageButton Grid.Column="4" WidthRequest = "64" HeightRequest = "64" Source="cancel_mark.png" Clicked="RemoveItemFromCart" CommandParameter="{Binding .}" VerticalOptions="Center"/>
+                        <Border BackgroundColor="{StaticResource CardBackground}"
+                                Stroke="{StaticResource HairlineBorder}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 14"
+                                Padding="0">
+                            <Grid Padding="14" ColumnDefinitions="64,*,Auto,Auto" ColumnSpacing="14" RowDefinitions="Auto,Auto">
 
-                           
-                                
+                                <Border Grid.Column="0" Grid.RowSpan="2"
+                                        StrokeShape="RoundRectangle 10"
+                                        Stroke="{StaticResource HairlineBorder}"
+                                        StrokeThickness="1"
+                                        Padding="0"
+                                        WidthRequest="64" HeightRequest="64"
+                                        VerticalOptions="Center">
+                                    <Image Source="{Binding ImagePath}" Aspect="AspectFill" />
+                                </Border>
+
+                                <Label Grid.Column="1" Grid.Row="0"
+                                       Text="{Binding Name}"
+                                       TextColor="{StaticResource TextPrimary}"
+                                       FontAttributes="Bold" FontSize="15"
+                                       LineBreakMode="TailTruncation"
+                                       VerticalOptions="End" />
+
+                                <Border Grid.Column="1" Grid.Row="1"
+                                        StrokeShape="RoundRectangle 18"
+                                        Stroke="{StaticResource HairlineBorder}"
+                                        StrokeThickness="1"
+                                        Padding="2"
+                                        HorizontalOptions="Start"
+                                        Margin="0,8,0,0">
+                                    <HorizontalStackLayout Spacing="0">
+                                        <Button Text="−"
+                                                Clicked="OnDecreaseProductAmount"
+                                                CommandParameter="{Binding .}"
+                                                FontSize="16"
+                                                TextColor="{StaticResource TextPrimary}"
+                                                BackgroundColor="Transparent"
+                                                WidthRequest="32" HeightRequest="32"
+                                                CornerRadius="16"
+                                                Padding="0" />
+                                        <Label Text="{Binding Count}"
+                                               TextColor="{StaticResource TextPrimary}"
+                                               FontAttributes="Bold" FontSize="14"
+                                               WidthRequest="26"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center" />
+                                        <Button Text="+"
+                                                Clicked="OnIncreaseProductAmount"
+                                                CommandParameter="{Binding .}"
+                                                FontSize="16"
+                                                TextColor="{StaticResource TextPrimary}"
+                                                BackgroundColor="Transparent"
+                                                WidthRequest="32" HeightRequest="32"
+                                                CornerRadius="16"
+                                                Padding="0" />
+                                    </HorizontalStackLayout>
+                                </Border>
+
+                                <Label Grid.Column="2" Grid.RowSpan="2"
+                                       Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                                       TextColor="{StaticResource PriceGreen}"
+                                       FontAttributes="Bold" FontSize="15"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End" />
+
+                                <ImageButton Grid.Column="3" Grid.RowSpan="2"
+                                             Source="cancel_mark.png"
+                                             Clicked="RemoveItemFromCart"
+                                             CommandParameter="{Binding .}"
+                                             WidthRequest="22" HeightRequest="22"
+                                             Aspect="AspectFit"
+                                             BackgroundColor="Transparent"
+                                             VerticalOptions="Center"
+                                             SemanticProperties.Description="Remove item" />
                             </Grid>
                         </Border>
-                    
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                
-                    
-                
-                
             </CollectionView>
-            <Button Grid.Row="3" Text="Check Out" HorizontalOptions="Center" VerticalOptions ="Center" TextColor="White"  BackgroundColor="Black"/>
+
+            <Button Grid.Row="3"
+                    x:Name="CheckoutButton"
+                    Text="Go to Checkout"
+                    BackgroundColor="{StaticResource AccentNavy}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill"
+                    Margin="20,16,20,20" />
+            <Button x:Name="BackButton"
+                    Grid.Row="4"
+                    Text="Back"
+                    Clicked="OnBackButton"
+                    BackgroundColor="{StaticResource AccentNavy}"
+                    TextColor="White"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill"
+                    Margin="20,16,20,20"/>
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

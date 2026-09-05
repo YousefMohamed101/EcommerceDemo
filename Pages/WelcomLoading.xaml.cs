@@ -23,12 +23,11 @@ public partial class WelcomLoading : ContentPage
     {
         bool finished = await GreetingLabel.FadeToAsync(1, 2000);
 
-        if (!finished)
-        {
-
-            await Task.Delay(1000);
-            await Shell.Current.GoToAsync(nameof(StorePage));
-
+        if(finished) {
+            return;
         }
+
+        await Task.Delay(1000);
+        await Shell.Current.GoToAsync(nameof(StorePage));
     }
 }

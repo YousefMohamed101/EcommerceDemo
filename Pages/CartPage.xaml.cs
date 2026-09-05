@@ -15,6 +15,8 @@ public partial class CartPage : ContentPage {
 	public CartPage() {
 		InitializeComponent();
 		InitializeData();
+
+		CheckoutButton.Clicked += (sender, args) => {Navigation.PushAsync(new CheckoutPage());};
 	}
 
 	public async void InitializeData() {
@@ -32,5 +34,29 @@ public partial class CartPage : ContentPage {
 		await _databaseConnection.RemoveFromCart(cartItem);
 		InitializeData();
 
+	}
+	private async void OnBackButton(object? sender, EventArgs eventArgs) {
+
+		await Navigation.PopAsync();
+	}
+
+	public async void OnIncreaseProductAmount(object? sender, EventArgs eventArgs) {
+
+		if(sender is not Button { CommandParameter: CartItem item }) {
+			return;
+		}
+		item.Count = Math.Abs(item.Count- (item.Count + 1));
+		await _databaseConnection.AddToCart(item);
+		InitializeData();
+		
+	}
+	public async void OnDecreaseProductAmount(object? sender, EventArgs eventArgs) {
+		if(sender is not Button { CommandParameter: CartItem item }) {
+			return;
+		}
+		item.Count -= (item.Count + 1);
+		await _databaseConnection.AddToCart(item);
+		InitializeData();
+		
 	}
 }

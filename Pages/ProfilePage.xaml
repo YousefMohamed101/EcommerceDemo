@@ -1,28 +1,147 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcommerceDemo.Pages.ProfilePage"
-             BackgroundColor="White">
-    <ContentPage.Content>
-        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"  Spacing="50">
-            <ImageButton x:Name="PfButton" Source="pf_icon.jpeg" HeightRequest="128" WidthRequest="128" Clicked="UpdatPfImage"/>
-            
-            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="15" ColumnSpacing="20">
-                
-                <!-- ROW 0: Username -->
-                <Entry x:Name="UserName" Grid.Row="0" Grid.Column="0" Text="Place Holder username" VerticalOptions="Center" TextColor="Black" IsEnabled="False" BackgroundColor="Gray"/>
-                <ImageButton x:Name="AllowUserEdit" Grid.Row="0" Grid.Column="1" Source="dotnet_bot.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" />
-                
-                <!-- ROW 1: Email -->
-                <Entry x:Name="Email" Grid.Row="1" Grid.Column="0" Text="Place Holder email" VerticalOptions="Center" TextColor="Black" IsEnabled="False" BackgroundColor="Gray"/>
-                <ImageButton x:Name="AllowEmailEdit" Grid.Row="1" Grid.Column="1" Source="dotnet_bot.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" />
-                
-                <!-- ROW 2: Admin (Spans across both columns since there is no button) -->
-                <Label x:Name="Admin" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Place Holder admin" VerticalOptions="Center" TextColor="Black"/>
-                
-            </Grid>
+             Title="Profile"
+             BackgroundColor="{StaticResource PageBackground}">
 
-        </VerticalStackLayout>
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="28,24,28,32" Spacing="28">
+
+                <!-- Avatar -->
+                <Grid HorizontalOptions="Center" WidthRequest="120" HeightRequest="120">
+                    <Border StrokeShape="Ellipse"
+                            Stroke="{StaticResource HairlineBorder}"
+                            StrokeThickness="1"
+                            Padding="0"
+                            WidthRequest="120" HeightRequest="120">
+                        <ImageButton x:Name="PfButton"
+                                     Source="pf_icon.jpeg"
+                                     Aspect="AspectFill"
+                                     Clicked="UpdatPfImage"
+                                     BackgroundColor="Transparent" />
+                    </Border>
+
+                    <Border StrokeShape="Ellipse"
+                            BackgroundColor="{StaticResource AccentNavy}"
+                            StrokeThickness="0"
+                            WidthRequest="32" HeightRequest="32"
+                            HorizontalOptions="End" VerticalOptions="End"
+                            InputTransparent="True">
+                        <Label Text="✎"
+                               TextColor="White"
+                               FontSize="14"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+
+                <!-- Fields -->
+                <VerticalStackLayout Spacing="18">
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Username" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                        <Border StrokeShape="RoundRectangle 10"
+                                Stroke="{StaticResource HairlineBorder}"
+                                StrokeThickness="1"
+                                BackgroundColor="{StaticResource CardBackground}"
+                                Padding="14,0"
+                                HeightRequest="50">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Entry x:Name="UserName" Grid.Column="0"
+                                       Text="Place Holder username"
+                                       IsEnabled="False"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       BackgroundColor="Transparent"
+                                       VerticalOptions="Center" />
+                                <Button x:Name="AllowUserEdit" Grid.Column="1"
+                                        Text="Edit"
+                                        BackgroundColor="Transparent"
+                                        TextColor="{StaticResource AccentNavy}"
+                                        FontAttributes="Bold" FontSize="13"
+                                        Padding="8,0"
+                                        VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Email" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                        <Border StrokeShape="RoundRectangle 10"
+                                Stroke="{StaticResource HairlineBorder}"
+                                StrokeThickness="1"
+                                BackgroundColor="{StaticResource CardBackground}"
+                                Padding="14,0"
+                                HeightRequest="50">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Entry x:Name="Email" Grid.Column="0"
+                                       Text="Place Holder email"
+                                       IsEnabled="False"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       BackgroundColor="Transparent"
+                                       VerticalOptions="Center" />
+                                <Button x:Name="AllowEmailEdit" Grid.Column="1"
+                                        Text="Edit"
+                                        BackgroundColor="Transparent"
+                                        TextColor="{StaticResource AccentNavy}"
+                                        FontAttributes="Bold" FontSize="13"
+                                        Padding="8,0"
+                                        VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Account balance" FontSize="13" TextColor="{StaticResource TextSecondary}" />
+                        <Border StrokeShape="RoundRectangle 10"
+                                Stroke="{StaticResource HairlineBorder}"
+                                StrokeThickness="1"
+                                BackgroundColor="{StaticResource CardBackground}"
+                                Padding="14,0"
+                                HeightRequest="50">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Entry x:Name="AddBalance" Grid.Column="0"
+                                       Text="Place Holder balance"
+                                       IsEnabled="False"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       BackgroundColor="Transparent"
+                                       VerticalOptions="Center" />
+                                <Button x:Name="AllowAmountEdit" Grid.Column="1"
+                                        Text="Edit"
+                                        BackgroundColor="Transparent"
+                                        TextColor="{StaticResource AccentNavy}"
+                                        FontAttributes="Bold" FontSize="13"
+                                        Padding="8,0"
+                                        VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Border StrokeShape="RoundRectangle 20"
+                            Stroke="{StaticResource HairlineBorder}"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource PageBackground}"
+                            Padding="14,8"
+                            HorizontalOptions="Start">
+                        <Label x:Name="Admin"
+                               Text="Place Holder admin"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource AccentNavy}" />
+                    </Border>
+                    <Button x:Name="BackButton"
+                            Text="Back"
+                            Clicked="OnBackButton"
+                            BackgroundColor="{StaticResource AccentNavy}"
+                            TextColor="White"
+                            FontSize="16"
+                            CornerRadius="12"
+                            HeightRequest="52"
+                            Margin="0,10,0,0" />
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

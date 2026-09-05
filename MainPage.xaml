@@ -2,44 +2,61 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcommerceDemo.MainPage"
-             BackgroundColor="White">
+             BackgroundColor="{StaticResource PageBackground}">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="2,0"
-            Spacing="15">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a submarine number ten" />
+    <Grid RowDefinitions="*,Auto" Padding="28,0,28,32">
 
-            <Label
-                Text="Hello Customer!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+        <VerticalStackLayout Grid.Row="0"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Center"
+                              Spacing="20">
 
-            <Label
-                Text="Welcome to the E-commerce Demo"
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-              />
+            <Image Source="logo_icon.png" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="72" HeightRequest="72"/>
 
-            <Button
-                x:Name="SignInButton"
-                Text="Sign In" 
-                Clicked="SignInButton_Clicked"
-                HorizontalOptions="Fill"
-                 BackgroundColor="Black"
-                 TextColor="White"/>
-            <Button
-                x:Name="SignUpButton"
-                Text="Sign Up" 
-                Clicked="SignUpButton_Clicked"
-                HorizontalOptions="Fill"
-                 BackgroundColor="Black"
-                 TextColor="White"/>
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Welcome"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}"
+                       HorizontalTextAlignment="Center"
+                       SemanticProperties.HeadingLevel="Level1" />
+                <Label Text="Sign in to pick up where you left off, or create an account to start shopping."
+                       FontSize="15"
+                       TextColor="{StaticResource TextSecondary}"
+                       HorizontalTextAlignment="Center"
+                       LineBreakMode="WordWrap" />
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
-    </ScrollView>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="12">
+
+            <Button x:Name="SignUpButton"
+                    Text="Create account"
+                    Clicked="SignUpButton_Clicked"
+                    BackgroundColor="{StaticResource AccentNavy}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill" />
+
+            <Button x:Name="SignInButton"
+                    Text="Sign in"
+                    Clicked="SignInButton_Clicked"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource TextPrimary}"
+                    BorderColor="{StaticResource HairlineBorder}"
+                    BorderWidth="1"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill" />
+
+        </VerticalStackLayout>
+
+    </Grid>
 
 </ContentPage>

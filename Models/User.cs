@@ -34,6 +34,8 @@ namespace EcommerceDemo.Models
                 Email = Email,
                 Password = Password,
                 ImagePath = ImagePath,
+                Balance = Balance,
+                BalanceType = BalanceType,
                 IsAdmin = IsAdmin
         };
     }

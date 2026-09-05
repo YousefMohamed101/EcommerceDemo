@@ -19,6 +19,7 @@ public partial class ProductView : ContentPage {
 	
 	public ProductView(Product product) {
 		InitializeComponent(); 
+		
 		AmountLabel.Text = _amountRequested.ToString();
 		_product = product;
 		ProductTitle.Text =  product.Title;
@@ -40,7 +41,11 @@ public partial class ProductView : ContentPage {
 		
 		IncreaseAmount.Clicked += (object? sender, EventArgs e)=> UpdateRequestAmount(1);
 		DecreaseAmount.Clicked += (object? sender, EventArgs e)=> UpdateRequestAmount(-1);
+		
+		AmountLabel.TextChanged += (object? sender, TextChangedEventArgs  e) => SetRequestAmount(e.NewTextValue);
 	}
+	
+	
 
 	private void OnNextClicked(object? sender, EventArgs e) {
 		if (ImageList.Position > 0)
@@ -56,7 +61,7 @@ public partial class ProductView : ContentPage {
 		}
 	}
 
-	private void OnAddToCartClicked(object? sender, EventArgs e) {
+	private async void OnAddToCartClicked(object? sender, EventArgs e) {
 		if(_amountRequested <= 0) {
 			Console.Write("please increase amount");
 			return;
@@ -67,6 +72,8 @@ public partial class ProductView : ContentPage {
 		cartItem.UserId = _databaseConnection.UserLog.Id;
 		cartItem.Count = _amountRequested;
 		_ = _databaseConnection.AddToCart(cartItem);
+		await Navigation.PopAsync();
+
 	}
 
 	public void UpdateRequestAmount(int i) {
@@ -76,8 +83,20 @@ public partial class ProductView : ContentPage {
 		
 		_amountRequested += i;
 		AmountLabel.Text = _amountRequested.ToString();
-		Console.Write("Requested ", _amountRequested);
+		Console.Write("Requested " +  _amountRequested);
 		
+	}
+
+	public void SetRequestAmount(string s) {
+
+		_amountRequested = int.Parse(s);
+		Console.Write("Requested: " + _amountRequested);
+
+	}
+	
+	private async void OnBackButton(object? sender, EventArgs eventArgs) {
+
+		await Navigation.PopAsync();
 	}
 
 

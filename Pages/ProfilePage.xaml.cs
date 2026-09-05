@@ -21,6 +21,9 @@ public partial class ProfilePage : ContentPage {
 		_userCopy = _databaseService.UserLog.Clone();
 		UserName.Text =  _userCopy.Name;
 		Email.Text =  _userCopy.Email;
+	
+		AddBalance.Text = _userCopy.Balance.ToString();
+		
 		if(_userCopy.ImagePath != null) {
 			PfButton.Source = _userCopy.ImagePath;
 		}
@@ -29,10 +32,11 @@ public partial class ProfilePage : ContentPage {
 		}
 		AllowUserEdit.Clicked += (sender, e) => AllowEdit(0);
 		AllowEmailEdit.Clicked += (sender, e) => AllowEdit(1);
+		AllowAmountEdit.Clicked += (sender, e) => AllowEdit(2);
 
 		UserName.Completed += (sender, e) => UpdateUserName(UserName.Text);
 		Email.Completed += (sender, e) => UpdateEmail(Email.Text);
-
+		AddBalance.Completed += (object? sender, EventArgs e) => UpdateBlanace(AddBalance.Text);
 	}
 
 	private async void UpdatPfImage(object? sender, EventArgs eventArgs) {
@@ -72,6 +76,14 @@ public partial class ProfilePage : ContentPage {
 			} else {
 				Email.BackgroundColor = Colors.Gray;
 			}
+		}else if(i == 2) {
+			AddBalance.IsEnabled = !Email.IsEnabled;
+			if(AddBalance.IsEnabled) {
+				AddBalance.BackgroundColor = Colors.LightGray;
+				
+			} else {
+				AddBalance.BackgroundColor = Colors.Gray;
+			}
 		}
 		
 		
@@ -86,5 +98,23 @@ public partial class ProfilePage : ContentPage {
 		_userCopy.Email =  email;
 		_databaseService.UpdateUser(_userCopy);
 		AllowEdit(1);
+	}
+
+	private void UpdateBlanace(string amount) {
+
+		decimal newMoney = decimal.Parse(amount);
+		Console.WriteLine("new money is " +  newMoney);
+		decimal change =  newMoney - _userCopy.Balance;
+		Console.WriteLine("Change is " +  change);
+		_userCopy.Balance += change;
+		AddBalance.Text = _userCopy.Balance.ToString();
+		_databaseService.UpdateUserWallet(change);
+		Console.WriteLine("the new change is " +  _userCopy.Balance);
+
+	}
+
+	private async void OnBackButton(object? sender, EventArgs eventArgs) {
+
+		await Navigation.PopAsync();
 	}
 }

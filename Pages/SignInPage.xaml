@@ -2,59 +2,101 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcommerceDemo.Pages.SignInPage"
-             Title="SignInPage"
-             BackgroundColor="White">
-    <VerticalStackLayout
-        Padding="2,0"
-        Spacing="15"
-        VerticalOptions="Center"
-        >
-        <Label Grid.Row="0"
-               Text="Sign In"
-               VerticalOptions="Center"
-               FontSize="32"
-               HorizontalOptions="Center" 
-               VerticalTextAlignment="Center"
-               Margin="20,10,0,10"
-               FontFamily="OpenSansSemibold"
-               TextColor= "Black"
-        />
+             Title="Sign In"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource PageBackground}">
 
-        <Label
-            x:Name= "UsernameLabel"
-            Text="UserName/Email"
-            VerticalOptions="End" 
-            HorizontalOptions="Start" />
-        <Entry x:Name="UsernameEntry" Placeholder="Username" BackgroundColor="LightGray" TextColor="Black"/>
-        <Label
-            x:Name= "PasswordLabel"
-        Text="Password"
-        VerticalOptions="End" 
-        HorizontalOptions="Start" 
-        />
-        <Grid ColumnDefinitions="*, Auto">
-            <Entry 
-        x:Name="PasswordEntry" 
-        Placeholder="Password" 
-        IsPassword="True"
-        Grid.Column="0"  BackgroundColor="LightGray" TextColor="Black"/>
-            <Button 
-        x:Name="ShowPasswordButton"
-        Text="Show Password" 
-        Clicked="ShowPassword"
-        Grid.Column="1" />
-        </Grid>
-        <Button 
-            Text="Sign In" 
-            Clicked="FindUser"
-            HorizontalOptions="Fill" 
-            BackgroundColor="Black"
-            TextColor="White"/>
-        <Button 
-            Text="Back" 
-            Clicked="Back"       
-            HorizontalOptions="Fill" 
-            BackgroundColor="Black"
-            TextColor="White"/>
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="28,0,28,32"
+                              Spacing="18"
+                              VerticalOptions="Center">
+
+            <VerticalStackLayout Spacing="6" Margin="0,0,0,10">
+                <Label Text="Sign in"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}" />
+                <Label Text="Enter your account details to continue"
+                       FontSize="14"
+                       TextColor="{StaticResource TextSecondary}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Username / Email"
+                       FontSize="13"
+                       TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 10"
+                        Stroke="{StaticResource HairlineBorder}"
+                        StrokeThickness="1"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        Padding="14,0"
+                        HeightRequest="50">
+                    <Entry x:Name="UsernameEntry"
+                           Placeholder="you@example.com"
+                           TextColor="{StaticResource TextPrimary}"
+                           PlaceholderColor="{StaticResource TextSecondary}"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Password"
+                       FontSize="13"
+                       TextColor="{StaticResource TextSecondary}" />
+                <Border StrokeShape="RoundRectangle 10"
+                        Stroke="{StaticResource HairlineBorder}"
+                        StrokeThickness="1"
+                        BackgroundColor="{StaticResource CardBackground}"
+                        Padding="14,0"
+                        HeightRequest="50">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Entry x:Name="PasswordEntry"
+                               Grid.Column="0"
+                               Placeholder="Password"
+                               IsPassword="True"
+                               TextColor="{StaticResource TextPrimary}"
+                               PlaceholderColor="{StaticResource TextSecondary}"
+                               BackgroundColor="Transparent"
+                               VerticalOptions="Center" />
+                        <Button x:Name="ShowPasswordButton"
+                                Grid.Column="1"
+                                Text="Show"
+                                Clicked="ShowPassword"
+                                BackgroundColor="Transparent"
+                                TextColor="{StaticResource AccentNavy}"
+                                FontAttributes="Bold"
+                                FontSize="13"
+                                Padding="8,0"
+                                VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <Button Text="Sign In"
+                    Clicked="FindUser"
+                    BackgroundColor="{StaticResource AccentNavy}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill"
+                    Margin="0,10,0,0" />
+
+            <Button Text="Back"
+                    Clicked="Back"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource TextPrimary}"
+                    BorderColor="{StaticResource HairlineBorder}"
+                    BorderWidth="1"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    HorizontalOptions="Fill" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>
