@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Extensions;
+using EcommerceDemo.Globals;
 using EcommerceDemo.Models;
 using EcommerceDemo.Singeltons;
 
@@ -47,7 +49,8 @@ public partial class SignInPage : ContentPage
             return;
         }
         
-        Console.Write("Could not find user");
+        await this.ShowPopupAsync(new PopupRequest("User couldn't be found!"));
+
 
     }
 }

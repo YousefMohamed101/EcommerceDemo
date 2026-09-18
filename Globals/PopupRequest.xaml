@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="EcommerceDemo.Globals.PopupRequest"
+               BackgroundColor="Transparent">
+
+    <Border StrokeShape="RoundRectangle 16"
+            Stroke="{StaticResource HairlineBorder}"
+            StrokeThickness="1"
+            BackgroundColor="{StaticResource CardBackground}"
+            Padding="24,28"
+            WidthRequest="280">
+
+        <VerticalStackLayout Spacing="16" HorizontalOptions="Fill">
+
+            <Border StrokeShape="Ellipse"
+                    BackgroundColor="{StaticResource AccentNavy}"
+                    StrokeThickness="0"
+                    WidthRequest="48" HeightRequest="48"
+                    HorizontalOptions="Center">
+                <Label Text="!"
+                       TextColor="White"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <Label x:Name="Message"
+                   Text="This is a Popup"
+                   FontSize="15"
+                   TextColor="{StaticResource TextPrimary}"
+                   HorizontalTextAlignment="Center"
+                   LineBreakMode="WordWrap" />
+
+            <Button Text="Close"
+                    Clicked="OnClose"
+                    BackgroundColor="{StaticResource AccentNavy}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="15"
+                    CornerRadius="10"
+                    HeightRequest="46"
+                    HorizontalOptions="Fill"
+                    Margin="0,4,0,0" />
+
+        </VerticalStackLayout>
+
+    </Border>
+
+</toolkit:Popup>

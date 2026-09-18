@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EcommerceDemo.Globals;
 using EcommerceDemo.Models;
 using EcommerceDemo.Singeltons;
 
@@ -22,7 +23,12 @@ public partial class CartPage : ContentPage {
 	public async void InitializeData() {
 		
 		
-		ItemsShow.ItemsSource = await _databaseConnection.GetCartItems();
+		List<CartItem> items = await _databaseConnection.GetCartItems();
+		foreach(CartItem item in items) {
+			item.DisplayPrice = CurrencyHelper.GetConversion((decimal)item.Price, _databaseConnection.UserLog.BalanceType);
+			item.DisplayTotalPrice = CurrencyHelper.GetConversion((decimal)item.TotalPrice, _databaseConnection.UserLog.BalanceType);
+		}
+		ItemsShow.ItemsSource = items;
 	}
 
 
@@ -52,6 +58,11 @@ public partial class CartPage : ContentPage {
 	}
 	public async void OnDecreaseProductAmount(object? sender, EventArgs eventArgs) {
 		if(sender is not Button { CommandParameter: CartItem item }) {
+			return;
+		}
+
+		if (item.Count <= 1)
+		{
 			return;
 		}
 		item.Count -= (item.Count + 1);

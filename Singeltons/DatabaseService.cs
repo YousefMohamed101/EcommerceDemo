@@ -168,16 +168,21 @@ namespace EcommerceDemo.Singeltons
             }
             item.Name = isProductExist.Title;
             item.ImagePath = isProductExist.Thumbnail;
-            item.Price = isProductExist.Price;
             
-           CartItem? alreadyInCart = await _cartDatabase.Table<CartItem>().Where(c => c.ItemId == item.ItemId && c.UserId == isUserExist.Id).FirstOrDefaultAsync();
+            if(isProductExist.DiscountPercent >= 1) {
+                item.Price = isProductExist.Price*(1-isProductExist.DiscountPercent/100);
+            } else {
+                item.Price = isProductExist.Price;
+            }
+            
+            CartItem? alreadyInCart = await _cartDatabase.Table<CartItem>().Where(c => c.ItemId == item.ItemId && c.UserId == isUserExist.Id).FirstOrDefaultAsync();
 
-           if(alreadyInCart != null) {
-               alreadyInCart.Count += item.Count;
-               int updatedCount = await _cartDatabase.UpdateAsync(alreadyInCart);
-               _productDatabase.UpdateAsync(isProductExist);
-               return;
-           }
+            if(alreadyInCart != null) {
+                alreadyInCart.Count += item.Count;
+                int updatedCount = await _cartDatabase.UpdateAsync(alreadyInCart);
+                _productDatabase.UpdateAsync(isProductExist);
+                return;
+            }
            
             
             int addedCount = await _cartDatabase.InsertAsync(item);
@@ -225,13 +230,13 @@ namespace EcommerceDemo.Singeltons
             
         }
 
-        public async Task Checkout(List<CartItem> items) {
+        public async Task<CheckOutStatus> Checkout(List<CartItem> items) {
             
             float totalPrice = items.Sum(cartItem => cartItem.TotalPrice);
 
             if(UserLog != null && totalPrice > (float)UserLog.Balance) {
-                throw new Exception("Insufficent Funds");
-                
+                return CheckOutStatus.InsufficientFunds;
+
             }
             UserLog.Balance -= (decimal)totalPrice;
             await _userDatabase.UpdateAsync(UserLog);
@@ -241,30 +246,20 @@ namespace EcommerceDemo.Singeltons
                 CartItem? isCartExist = await _cartDatabase.Table<CartItem>().Where(c => c.ItemId == cartItem.ItemId && c.UserId == isUserExist.Id).FirstOrDefaultAsync();
                 Product? isProductExist = await _productDatabase.Table<Product>().Where(p=> p.Id == cartItem.ItemId).FirstOrDefaultAsync();
 
-                if(isUserExist == null) {
-                    throw new Exception("User doesn't exist");
-                }
-        
-                if(isCartExist == null) {
-                    throw new Exception("Cart item doesn't exist");
+                if(isUserExist == null || isCartExist == null || isProductExist == null) {
+                    return CheckOutStatus.Failed;
                 }
 
-                if(isProductExist == null) {
-                    throw new Exception("Product doesn't exist");
-                }
-                
-                
+
                 isProductExist?.Stock -= cartItem.Count;
                 await _productDatabase.UpdateAsync(isProductExist);
                 await _cartDatabase.DeleteAsync(isCartExist);
+                
 
             }
-            
-            
-            
-            
-            
-            
+
+
+            return CheckOutStatus.Succeeded;
         }
 
     }

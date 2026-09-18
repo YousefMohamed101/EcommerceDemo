@@ -110,11 +110,33 @@
                                            TextColor="{StaticResource TextSecondary}"
                                            LineBreakMode="TailTruncation"
                                            MaxLines="1" />
-                                    <Label Text="{Binding Price, StringFormat='{0:C}'}"
-                                           FontSize="14"
-                                           FontAttributes="Bold"
-                                           TextColor="{StaticResource PriceGreen}"
-                                           Margin="0,4,0,0" />
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="{Binding DisplayOriginalPrice}"
+                                               IsVisible="{Binding HasDiscount}"
+                                               FontSize="12"
+                                               TextColor="{StaticResource TextSecondary}"
+                                               TextDecorations="Strikethrough"
+                                               VerticalOptions="Center" />
+                                        
+                                        <Label Text="{Binding DisplayPrice, StringFormat='{0:C}'}"
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource PriceGreen}"
+                                               Margin="0,4,0,0" />
+                                    </HorizontalStackLayout>
+                                    <Border IsVisible="{Binding HasDiscount}"
+                                            StrokeShape="RoundRectangle 6"
+                                            StrokeThickness="0"
+                                            BackgroundColor="#FDEAEA"
+                                            Padding="6,2"
+                                            HorizontalOptions="Start"
+                                            Margin="0,2,0,0">
+                                        <Label Text="{Binding DiscountBadge}"
+                                               FontSize="11"
+                                               FontAttributes="Bold"
+                                               TextColor="#D64545" />
+                                    </Border>
+                                    
                                 </VerticalStackLayout>
                             </VerticalStackLayout>
                         </Border>

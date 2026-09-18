@@ -100,7 +100,7 @@
                                 </Border>
 
                                 <Label Grid.Column="2" Grid.RowSpan="2"
-                                       Text="{Binding TotalPrice, StringFormat='{0:C}'}"
+                                       Text="{Binding DisplayTotalPrice, StringFormat='{0:C}'}"
                                        TextColor="{StaticResource PriceGreen}"
                                        FontAttributes="Bold" FontSize="15"
                                        VerticalOptions="Center"

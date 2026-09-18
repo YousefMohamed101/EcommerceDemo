@@ -1,3 +1,4 @@
+using EcommerceDemo.Globals;
 using EcommerceDemo.Models;
 using EcommerceDemo.Singeltons;
 
@@ -39,7 +40,24 @@ public partial class StorePage : ContentPage
 
         ProfileRequest.SelectedIndex = 0;
         
-        _allProducts = await _databaseConnection.GetProducts();     
+        _allProducts = await _databaseConnection.GetProducts();
+        
+        foreach(Product item in _allProducts) {
+            decimal finalPrice = (decimal)item.Price;
+            if(item.DiscountPercent >= 1) {
+                finalPrice *= 1 - (decimal)item.DiscountPercent / 100m;
+                item.HasDiscount = true;
+                
+                item.DisplayOriginalPrice = CurrencyHelper.GetConversion((decimal)item.Price, _databaseConnection.UserLog.BalanceType);
+                item.DisplayPrice = CurrencyHelper.GetConversion(finalPrice, _databaseConnection.UserLog.BalanceType);
+                item.DiscountBadge = item.DiscountPercent + "%";
+                continue;
+            }
+            
+            item.DisplayOriginalPrice = "";
+            item.HasDiscount = false;
+            item.DisplayPrice = CurrencyHelper.GetConversion(finalPrice, _databaseConnection.UserLog.BalanceType);
+        }
         ItemsCollection.ItemsSource = _allProducts;
     }
 
@@ -47,7 +65,6 @@ public partial class StorePage : ContentPage
     private async void OnProductTapped(object? sender, TappedEventArgs e) {
 
         if(e.Parameter is Product product) {
-            Console.Write($"product Tapped: {product.Title}");
             await Navigation.PushAsync(new ProductView(product));
         }
            
@@ -86,7 +103,6 @@ public partial class StorePage : ContentPage
 
     private void GoToCart(object? sender, EventArgs eventArgs) {
 
-        Console.WriteLine("cart icon tapped");
         Navigation.PushAsync(new CartPage());
 
     }

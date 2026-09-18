@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcommerceDemo.Pages.ProductView"
              BackgroundColor="White">
+    
+    <ScrollView x:Name="Android">
 
-    <Grid ColumnDefinitions="*, *" Padding="0">
+        <VerticalStackLayout>
 
-        <Grid Grid.Column="0" RowDefinitions="*, Auto" Padding="10" RowSpacing="10">
-
-            <Grid Grid.Row="0">
+            <Grid  HeightRequest="340">
 
 
                 <Border StrokeShape="RoundRectangle 12"
@@ -65,15 +65,13 @@
             </Grid>
 
             <IndicatorView x:Name="Dots"
-                           Grid.Row="1"
                            IndicatorColor="LightGray"
                            SelectedIndicatorColor="Black"
                            HorizontalOptions="Center"
                            Margin="0,10,0,10" />
-        </Grid>
+        
 
-        <VerticalStackLayout Grid.Column="1"
-                              VerticalOptions="Center"
+        <VerticalStackLayout VerticalOptions="Center"
                               Padding="20"
                               Spacing="12">
 
@@ -82,17 +80,32 @@
                    FontAttributes="Bold"
                    TextColor="Black"
                    HorizontalOptions="Start" />
-
-            <Label x:Name="ProductPrice"
-                   FontSize="20"
-                   TextColor="Gray"
-                   HorizontalOptions="Start" 
-                   VerticalOptions="Start"/>
-            <Label x:Name="Price"
-                   FontSize="14"
-                   TextColor="DimGray"
-                   LineBreakMode="WordWrap"
-                   HorizontalOptions="Start" />
+            <HorizontalStackLayout Spacing="5">
+                <Label x:Name="Discount"
+                       Text=""
+                       FontSize="12"
+                       TextColor="{StaticResource TextSecondary}"
+                       TextDecorations="Strikethrough"
+                       VerticalOptions="Center" />
+            
+                <Label x:Name="Price"
+                       FontSize="14"
+                       TextColor="{StaticResource PriceGreen}"
+                       LineBreakMode="WordWrap"
+                       HorizontalOptions="Start" />
+                <Border StrokeShape="RoundRectangle 6"
+                        StrokeThickness="0"
+                        BackgroundColor="#FDEAEA"
+                        Padding="6,2"
+                        HorizontalOptions="Start"
+                        Margin="0,2,0,0">
+                    <Label x:Name="DiscountBadge"
+                           FontSize="11"
+                           FontAttributes="Bold"
+                           TextColor="#D64545" />
+                </Border>
+            </HorizontalStackLayout>
+            
             <Label x:Name="ProductDescription"
                    FontSize="14"
                    TextColor="Black"
@@ -142,7 +155,8 @@
                     Margin="0,10,0,0" />
 
         </VerticalStackLayout>
+        
+        </VerticalStackLayout>
 
-    </Grid>
-
+    </ScrollView>
 </ContentPage>

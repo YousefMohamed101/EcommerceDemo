@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EcommerceDemo.Globals;
 using EcommerceDemo.Models;
 using EcommerceDemo.Singeltons;
 
@@ -22,9 +23,9 @@ public partial class ProfilePage : ContentPage {
 		UserName.Text =  _userCopy.Name;
 		Email.Text =  _userCopy.Email;
 	
-		AddBalance.Text = _userCopy.Balance.ToString();
+		AddBalance.Text = CurrencyHelper.GetConversion(_userCopy.Balance,_userCopy.BalanceType);
 		
-		if(_userCopy.ImagePath != null) {
+		if(!string.IsNullOrEmpty(_userCopy.ImagePath)) {
 			PfButton.Source = _userCopy.ImagePath;
 		}
 		if(_userCopy.IsAdmin) {
@@ -39,20 +40,23 @@ public partial class ProfilePage : ContentPage {
 		AddBalance.Completed += (object? sender, EventArgs e) => UpdateBlanace(AddBalance.Text);
 	}
 
-	private async void UpdatPfImage(object? sender, EventArgs eventArgs) {
+	private async void UpdatePfImage(object? sender, EventArgs eventArgs) {
 
-		var imageFilter = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>> {
-				{ DevicePlatform.WinUI, new[] { ".png", ".jpg", ".jpeg" } }
+		FilePickerFileType imageFilter = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>> {
+				{ DevicePlatform.WinUI, [".png", ".jpg", ".jpeg"] }
 		});
-		var options = new PickOptions {
+		PickOptions options = new PickOptions {
 				PickerTitle = "Choose an Image", FileTypes = imageFilter
 		};
 		
 		FileResult? result = await FilePicker.PickAsync(options);
-		if(result != null) {
-			_userCopy.ImagePath = result.FullPath;
-			_databaseService.UpdateUser(_userCopy);
+		if(result == null) {
+			return;
 		}
+
+		_userCopy.ImagePath = result.FullPath;
+		_databaseService.UpdateUser(_userCopy);
+		PfButton.Source = _userCopy.ImagePath;
 
 
 
@@ -66,23 +70,23 @@ public partial class ProfilePage : ContentPage {
 				UserName.BackgroundColor = Colors.LightGray;
 				
 			} else {
-				UserName.BackgroundColor = Colors.Gray;
+				UserName.BackgroundColor = Colors.Transparent;
 			}
 		}else if(i == 1) {
 			Email.IsEnabled = !Email.IsEnabled;
 			if(Email.IsEnabled) {
-				Email.BackgroundColor = Colors.LightGray;
+				Email.BackgroundColor = (Color)Application.Current!.Resources["TextSecondary"];;
 				
 			} else {
-				Email.BackgroundColor = Colors.Gray;
+				Email.BackgroundColor = Colors.Transparent;
 			}
 		}else if(i == 2) {
-			AddBalance.IsEnabled = !Email.IsEnabled;
+			AddBalance.IsEnabled = !AddBalance.IsEnabled;
 			if(AddBalance.IsEnabled) {
 				AddBalance.BackgroundColor = Colors.LightGray;
 				
 			} else {
-				AddBalance.BackgroundColor = Colors.Gray;
+				AddBalance.BackgroundColor = Colors.Transparent;
 			}
 		}
 		
@@ -103,13 +107,28 @@ public partial class ProfilePage : ContentPage {
 	private void UpdateBlanace(string amount) {
 
 		decimal newMoney = decimal.Parse(amount);
-		Console.WriteLine("new money is " +  newMoney);
 		decimal change =  newMoney - _userCopy.Balance;
-		Console.WriteLine("Change is " +  change);
+		
 		_userCopy.Balance += change;
-		AddBalance.Text = _userCopy.Balance.ToString();
+
+		switch(_userCopy.BalanceType) {
+			case MoneyType.Dollars:
+				AddBalance.Text = $"{_userCopy.Balance}$";
+				break;
+			case MoneyType.Euros:
+				AddBalance.Text = $"{_userCopy.Balance}€";
+				break;
+			case MoneyType.Yen:
+				AddBalance.Text = $"{_userCopy.Balance}¥";
+				break;
+
+			default:
+				throw new ArgumentOutOfRangeException();
+		}
+		
+		
 		_databaseService.UpdateUserWallet(change);
-		Console.WriteLine("the new change is " +  _userCopy.Balance);
+		
 
 	}
 

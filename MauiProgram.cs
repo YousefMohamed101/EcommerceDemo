@@ -1,4 +1,5 @@
-﻿using EcommerceDemo.Singeltons;
+﻿using CommunityToolkit.Maui;
+using EcommerceDemo.Singeltons;
 using Microsoft.Extensions.Logging;
 
 namespace EcommerceDemo
@@ -7,7 +8,7 @@ namespace EcommerceDemo
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
+            MauiAppBuilder builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -15,13 +16,11 @@ namespace EcommerceDemo
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
-#if DEBUG
-            builder.Logging.AddDebug();
-
+            
+            builder.UseMauiCommunityToolkit();
+            
             builder.Services.AddSingleton<DatabaseService>();
-#endif
-
+            
             return builder.Build();
         }
     }

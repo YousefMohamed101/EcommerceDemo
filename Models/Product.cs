@@ -40,6 +40,12 @@ public class Product {
 		get => string.IsNullOrEmpty(ImagesJson) ? new() : JsonSerializer.Deserialize<List<string>>(ImagesJson);
 		set => ImagesJson = JsonSerializer.Serialize(value);
 	}
+	
+	[Ignore] public string DisplayPrice { get; set; }
+	
+	[Ignore] public string DisplayOriginalPrice { get; set; }
+	[Ignore] public bool HasDiscount { get; set; }
+	[Ignore] public string DiscountBadge { get; set; }
 }
 
 }

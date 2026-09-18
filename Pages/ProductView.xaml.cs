@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Maui.Extensions;
 using EcommerceDemo.Globals;
 using EcommerceDemo.Models;
 using EcommerceDemo.Singeltons;
@@ -24,18 +25,25 @@ public partial class ProductView : ContentPage {
 		_product = product;
 		ProductTitle.Text =  product.Title;
 		ImageList.ItemsSource = product.Images;
-		
-		Price.Text = _databaseConnection.UserLog.BalanceType switch {
-				             MoneyType.Dollars => product.Price.ToString(CultureInfo.CurrentCulture) + "$"
-				             , MoneyType.euros => product.Price.ToString(CultureInfo.CurrentCulture) + "€"
-				             , MoneyType.Yen => product.Price.ToString(CultureInfo.CurrentCulture) + "¥"
-				             , _ => Price.Text
-		             };
 
-		ProductDescription.Text = product.Description;
-		foreach(string image in product.Images) {
-			Console.Write(image);
+		if(product.DiscountPercent >= 1) {
+			Discount.IsVisible = true;
+			DiscountBadge.IsVisible = true;
+			Discount.Text = CurrencyHelper.GetConversion((decimal)product.Price, DatabaseService.Instance.UserLog.BalanceType);
+			
+			decimal discountedPrice = (decimal)(product.Price * (1 - product.DiscountPercent / 100));
+			Price.Text = CurrencyHelper.GetConversion(discountedPrice, DatabaseService.Instance.UserLog.BalanceType);
+			DiscountBadge.Text = product.DiscountPercent + "%";
+
+		} else {
+			Discount.IsVisible = false;
+			DiscountBadge.IsVisible = false;
+			Price.Text = CurrencyHelper.GetConversion((decimal)product.Price, DatabaseService.Instance.UserLog.BalanceType);
+
 		}
+		
+		ProductDescription.Text = product.Description;
+		
 
 		_totalImages = product.Images.Count;
 		
@@ -63,7 +71,7 @@ public partial class ProductView : ContentPage {
 
 	private async void OnAddToCartClicked(object? sender, EventArgs e) {
 		if(_amountRequested <= 0) {
-			Console.Write("please increase amount");
+			await this.ShowPopupAsync(new PopupRequest("Please add an amount"));
 			return;
 		}
 		
@@ -72,6 +80,7 @@ public partial class ProductView : ContentPage {
 		cartItem.UserId = _databaseConnection.UserLog.Id;
 		cartItem.Count = _amountRequested;
 		_ = _databaseConnection.AddToCart(cartItem);
+		await this.ShowPopupAsync(new PopupRequest("Successfully added to cart"));
 		await Navigation.PopAsync();
 
 	}
@@ -83,14 +92,14 @@ public partial class ProductView : ContentPage {
 		
 		_amountRequested += i;
 		AmountLabel.Text = _amountRequested.ToString();
-		Console.Write("Requested " +  _amountRequested);
+		
 		
 	}
 
 	public void SetRequestAmount(string s) {
 
 		_amountRequested = int.Parse(s);
-		Console.Write("Requested: " + _amountRequested);
+		
 
 	}
 	

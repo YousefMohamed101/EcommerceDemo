@@ -15,4 +15,8 @@ public class CartItem {
 	public float Price {get; set;}
 	public int Count {get; set;}
 	public float TotalPrice => Price * Count;
+	
+	[Ignore] public string DisplayPrice { get; set; }
+	[Ignore] public string DisplayTotalPrice { get; set; }
+	
 }

@@ -19,7 +19,7 @@
                         <ImageButton x:Name="PfButton"
                                      Source="pf_icon.jpeg"
                                      Aspect="AspectFill"
-                                     Clicked="UpdatPfImage"
+                                     Clicked="UpdatePfImage"
                                      BackgroundColor="Transparent" />
                     </Border>
 
